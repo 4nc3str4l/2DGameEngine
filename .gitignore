@@ -7,3 +7,9 @@ cmake_install.cmake
 install_manifest.txt
 compile_commands.json
 CTestTestfile.cmake
+
+# Exclude build folder
+build/
+
+# Visual studio code folder
+.vscode
