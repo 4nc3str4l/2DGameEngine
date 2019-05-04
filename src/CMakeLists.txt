@@ -28,8 +28,17 @@ add_executable(FirstStreaming
     ${CMAKE_SOURCE_DIR}/engine/gfx/stb_image.h
     ${CMAKE_SOURCE_DIR}/engine/gfx/stb_image.cpp 
 
+    ${CMAKE_SOURCE_DIR}/engine/gfx/sprite.h
+    ${CMAKE_SOURCE_DIR}/engine/gfx/sprite.cpp 
+    
     ${CMAKE_SOURCE_DIR}/engine/tools/loader.h
     ${CMAKE_SOURCE_DIR}/engine/tools/loader.cpp
+
+    ${CMAKE_SOURCE_DIR}/engine/tools/input.h
+    ${CMAKE_SOURCE_DIR}/engine/tools/input.cpp
+
+    ${CMAKE_SOURCE_DIR}/engine/tools/maths.h
+    ${CMAKE_SOURCE_DIR}/engine/tools/maths.cpp
 
     ${CMAKE_SOURCE_DIR}/engine/main.cpp
     ${CMAKE_SOURCE_DIR}/dependencies/glad/src/glad.c 

@@ -3,7 +3,10 @@
 #include "tools/loader.h"
 #include "gfx/sprite_renderer.h"
 
+#include "tools/input.h"
 #include "glm/gtc/matrix_transform.hpp"
+#include "tools/maths.h"
+#include "gfx/sprite.h"
 
 int main(int argc, char** argv)
 {
@@ -30,11 +33,29 @@ int main(int argc, char** argv)
     auto sr = le::SpriteRenderer(*s.get());
 
     /* Loop until the user closes the window */
+	int spriteX = 0;
+	int spriteY = 0;
+
+	const int SPRITE_NUM = 2000;
+	le::Sprite sprites[SPRITE_NUM];
+	for(int i = 0; i < SPRITE_NUM; i++)
+	{
+		sprites[i] = le::Sprite{0, 0, texture2};
+		sprites[i].tint = glm::vec3(le::Maths::GetRandomFloat(), le::Maths::GetRandomFloat(), le::Maths::GetRandomFloat());
+	}
+	
     while (!w.isClosed())
     {
 		w.clear();
-		sr.DrawSprite(*texture2.get(), 
-        glm::vec2(1, 1), glm::vec2(64, 64), 45.0f, glm::vec3(0.0f, 1.0f, 0.0f));
+
+		for (int i = 0; i < SPRITE_NUM; i++)
+		{
+			auto s = sprites[i];
+			s.pos.x = le::Maths::GetRandomFloat(0, w.width);
+			s.pos.y = le::Maths::GetRandomFloat(0, w.height);
+			sr.DrawSprite(*s.texture.get(), s.pos, s.scale, s.rot, s.tint);
+		}
+
 		w.update();
     }
 

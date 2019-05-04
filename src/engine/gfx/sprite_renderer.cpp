@@ -1,7 +1,5 @@
 #include "sprite_renderer.h"
 
-
-
 namespace le
 {
 
@@ -13,7 +11,7 @@ SpriteRenderer::SpriteRenderer(Shader &shader)
 
 void SpriteRenderer::initRenderData()
 {
-    GLuint VBO;
+	GLuint VBO;
     GLfloat vertices[] = { 
         // Pos      // Tex
         0.0f, 1.0f, 0.0f, 1.0f,
