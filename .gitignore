@@ -13,3 +13,6 @@ build/
 
 # Visual studio code folder
 .vscode
+
+# Visual studio files
+.vs
