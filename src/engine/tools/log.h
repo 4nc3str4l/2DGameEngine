@@ -2,7 +2,7 @@
 
 #include <iostream>
 #include <string>
-#ifdef WIN32
+#ifdef _WIN64
 #include <windows.h>
 #endif
 
@@ -42,7 +42,7 @@ static void MESSAGE(T t, Args... _message)
 
 static void SetLogType(int t)
 {
-#ifdef WIN32
+#ifdef _WIN64
 	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), t);
 #endif
 }
@@ -50,7 +50,7 @@ static void SetLogType(int t)
 static void EndLog()
 {
 	std::cout << "\n";
-#ifdef WIN32
+#ifdef _WIN64
 	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), ENGINE_REGULAR_COLOR);
 #endif
 }

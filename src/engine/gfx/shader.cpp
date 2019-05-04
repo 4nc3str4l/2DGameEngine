@@ -3,9 +3,22 @@
 
 namespace le {
 
+Shader::Shader(const std::string genericPath)
+{
+    std::string fs = genericPath + ".fs";
+    std::string vs = genericPath + ".vs";
+    this->Create(vs.c_str(), fs.c_str(), nullptr);
+}
+
 Shader::Shader(const char* vertexPath, const char* fragmentPath, const char* geometryPath /*= nullptr*/)
 {
-    std::cout << "Building Shader: " << vertexPath << std::endl;
+    this->Create(vertexPath, fragmentPath, geometryPath);
+}
+
+void Shader::Create(const char* vertexPath, const char* fragmentPath, const char* geometryPath /*= nullptr*/)
+{
+    LOG_INFO("Building Shader: ", vertexPath);
+    
     std::string vertexCode;
     std::string fragmentCode;
     std::string geometryCode;
@@ -85,7 +98,7 @@ Shader::Shader(const char* vertexPath, const char* fragmentPath, const char* geo
     glDeleteShader(vertex);
     glDeleteShader(fragment);
     if (geometryPath != nullptr)
-        glDeleteShader(geometry);
+        glDeleteShader(geometry);    
 }
 
 void Shader::Use() 

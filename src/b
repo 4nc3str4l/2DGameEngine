@@ -1,4 +1,5 @@
 cd build
 cmake --build .
 cd Debug
-./FirstStreaming.exe
+cp -r ../../engine/res .
+./FirstStreaming.exe 

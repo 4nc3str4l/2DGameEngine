@@ -13,6 +13,9 @@ add_executable(FirstStreaming
     ${CMAKE_SOURCE_DIR}/engine/tools/log.h
     ${CMAKE_SOURCE_DIR}/engine/tools/log.cpp
     
+    ${CMAKE_SOURCE_DIR}/engine/tools/loader.h
+    ${CMAKE_SOURCE_DIR}/engine/tools/loader.cpp
+
     ${CMAKE_SOURCE_DIR}/engine/gfx/shader.h
     ${CMAKE_SOURCE_DIR}/engine/gfx/shader.cpp    
     

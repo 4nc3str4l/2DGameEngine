@@ -17,6 +17,8 @@ public:
 	unsigned int ID;
 	
 	Shader(const char* vertexPath, const char* fragmentPath, const char* geometryPath = nullptr);
+	Shader(const std::string genericPath);
+
 	void Use();
 	void SetBool(const std::string &name, bool value) const;
 	void SetInt(const std::string &name, int value) const;
@@ -49,6 +51,7 @@ public:
 	void BindAttribute(const std::string &_name, const int _attribute) const;
 
 private:
+	void Create(const char* vertexPath, const char* fragmentPath, const char* geometryPath /*= nullptr*/);
 	void CheckCompileErrors(GLuint shader, std::string type);
 
 	std::map<const std::string, GLuint> m_cachedLocations;
