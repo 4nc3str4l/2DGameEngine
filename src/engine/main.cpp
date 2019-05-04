@@ -10,6 +10,7 @@
 #include <vector>
 
 #include "gfx/text_renderer.h"
+#include "tools/log.h"
 
 
 int main(int argc, char** argv)
@@ -22,7 +23,7 @@ int main(int argc, char** argv)
 	}
 
 	le::Loader::init(argv);
-	auto s = le::Loader::shader("res/shaders/sprite");
+	auto s = le::Loader::shader("res/shaders/light_sprite");
 	auto texture2 = le::Loader::LoadTexture("res/textures/quad.png");
 	
     // Configure shaders
@@ -55,17 +56,41 @@ int main(int argc, char** argv)
     {
 		w.clear();
 
+		s->Use();
+		s->SetVec2("light_pos", glm::vec2(le::Maths::ReprojectRange(0, w.width, -1, 1, le::Input::MousePosX), le::Maths::ReprojectRange(0, w.height, -1, 1, w.height - le::Input::MousePosY)));
 		s->SetMat4("projection", projection);
 		for (le::Sprite* s : sprites)
 		{
-			s->pos.x = le::Maths::GetRandomFloat(0, w.width);
-			s->pos.y = le::Maths::GetRandomFloat(0, w.height);
+			s->pos.x = le::Maths::GetRandomFloat(spriteX, w.width);
+			s->pos.y = le::Maths::GetRandomFloat(spriteY, w.height);
 			s->tint = glm::vec3(le::Maths::GetRandomFloat(), le::Maths::GetRandomFloat(), le::Maths::GetRandomFloat());
 		}
 
+		if(le::Input::IsKeyPressed(GLFW_KEY_W))
+		{
+			spriteX += 1;
+		}
+
+		if(le::Input::IsKeyPressed(GLFW_KEY_S))
+		{
+			spriteX -= 1;
+		}
+		
+
+		if(le::Input::IsKeyPressed(GLFW_KEY_A))
+		{
+			spriteY -= 1;
+		}
+		
+		if(le::Input::IsKeyPressed(GLFW_KEY_D))
+		{
+			spriteY -= 1;
+		}
+		
+
 		sr.Render(sprites);
 
-		Text->RenderText("Text Rendering!!!", 250.0f, w.height / 2, 1.0f);
+		Text->RenderText("Text Rendering!!!", spriteX, w.height / 2, 1.0f);
 		
 		w.update();
     }

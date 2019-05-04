@@ -13,4 +13,9 @@ float Maths::GetRandomFloat(float _minimum, float _maximum)
     return _minimum + r;
 }
 
+float Maths::ReprojectRange(float xi1, float xi2, float xf1, float xf2, float x)
+{
+    return xf1 + ((x - xi1) / (xi2 - xi1)) * (xf2 - xf1);
+}
+
 }

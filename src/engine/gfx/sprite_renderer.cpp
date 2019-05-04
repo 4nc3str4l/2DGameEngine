@@ -41,6 +41,7 @@ void SpriteRenderer::initRenderData()
     Loader::AddInstancedAttributes(this->quadVAO, this->vbo, 3, 4, INSTACE_DATA_LENGTH, 8);
     Loader::AddInstancedAttributes(this->quadVAO, this->vbo, 4, 4, INSTACE_DATA_LENGTH, 12);
     
+    // Tint info    
     Loader::AddInstancedAttributes(this->quadVAO, this->vbo, 5, 3, INSTACE_DATA_LENGTH, 16);
 }
 
