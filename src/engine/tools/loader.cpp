@@ -14,7 +14,7 @@ std::map<std::string, Texture2D*> Loader::textures;
 std::vector<GLuint> Loader::vaos;
 std::vector<GLuint> Loader::vbos;
 
-void normalizePath(std::string* path)
+void Loader::normalizePath(std::string* path)
 {
     #if defined(_WIN64)
     std::replace(path->begin(), path->end(),  '/', '\\');

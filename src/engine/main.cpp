@@ -9,6 +9,9 @@
 #include "gfx/sprite.h"
 #include <vector>
 
+#include "gfx/text_renderer.h"
+
+
 int main(int argc, char** argv)
 {
     auto w = le::Window{800, 600, "Lost Engine"};
@@ -43,8 +46,11 @@ int main(int argc, char** argv)
 	for(int i = 0; i < SPRITE_NUM; i++)
 	{
 		sprites.push_back(new le::Sprite{0, 0, texture2});
-	}
-	
+	}	
+
+	auto Text = new le::TextRenderer(w.width, w.height);
+    Text->Load("res/fonts/OCRAEXT.TTF", 24);
+
     while (!w.isClosed())
     {
 		w.clear();
@@ -58,11 +64,14 @@ int main(int argc, char** argv)
 		}
 
 		sr.Render(sprites);
+
+		Text->RenderText("Text Rendering!!!", 250.0f, w.height / 2, 1.0f);
 		
 		w.update();
     }
 
 	le::Loader::FreeResources();
+	delete Text;
 
     return 0;
 }

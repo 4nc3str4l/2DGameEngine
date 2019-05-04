@@ -49,7 +49,14 @@ public:
     static void AddInstancedAttributes(int _vao, int _vbo, int _attribute, int _dataSize, int _instancedDataLength, int _offset);
     static void UpdateVBO(GLuint _vbo, float* _data , int dataLength);
     static void StoreDataInAttributeList(int _attributeNumber, int _coordinateSize, float* _data, int _length);
-
 	static void FreeResources();
+    static inline std::string getInnerPath(const std::string& path)
+    {
+        std::string fullPath = base + path;
+        normalizePath(&fullPath);
+        return fullPath;
+    }
+private:
+    static void normalizePath(std::string* path);
 };
 }

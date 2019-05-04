@@ -6,7 +6,11 @@ set(GLFW_BUILD_TESTS OFF CACHE BOOL "" FORCE)
 set(GLFW_BUILD_EXAMPLES OFF CACHE BOOL "" FORCE)
 
 include_directories(${CMAKE_SOURCE_DIR}/dependencies/glad/include)
+
 add_subdirectory(${CMAKE_SOURCE_DIR}/dependencies/glfw-3.3)
+add_subdirectory(${CMAKE_SOURCE_DIR}/dependencies/freetype-2.10.0)
+include_directories(${PROJECT_SOURCE_DIR}/dependencies/freetype-2.10.0/include)
+
 include_directories(${CMAKE_SOURCE_DIR}/dependencies/glm)
 
 add_executable(FirstStreaming 
@@ -34,6 +38,9 @@ add_executable(FirstStreaming
     ${CMAKE_SOURCE_DIR}/engine/gfx/raw_model.h
     ${CMAKE_SOURCE_DIR}/engine/gfx/raw_model.cpp 
 
+    ${CMAKE_SOURCE_DIR}/engine/gfx/text_renderer.h
+    ${CMAKE_SOURCE_DIR}/engine/gfx/text_renderer.cpp 
+
     ${CMAKE_SOURCE_DIR}/engine/tools/loader.h
     ${CMAKE_SOURCE_DIR}/engine/tools/loader.cpp
 
@@ -47,4 +54,4 @@ add_executable(FirstStreaming
     ${CMAKE_SOURCE_DIR}/dependencies/glad/src/glad.c 
 )
 
-target_link_libraries(FirstStreaming glfw)
+target_link_libraries(FirstStreaming glfw freetype)
