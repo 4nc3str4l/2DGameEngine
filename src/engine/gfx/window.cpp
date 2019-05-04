@@ -34,11 +34,24 @@ int Window::init()
 		std::cout << "Failed to initialize GLAD" << std::endl;
 		return -1;
 	}
+
+	// Multisampling
+	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
+    glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
+    glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+    glfwWindowHint(GLFW_RESIZABLE, GL_FALSE);
+	
+	glfwWindowHint(GLFW_SAMPLES, 4);
+	glEnable(GL_MULTISAMPLE);  
+	glEnable(GL_DEPTH_TEST);
+
+	// Define the viewport dimensions
+    glViewport(0, 0, this->width, this->height);
 }
 
 void Window::clear() 
 {
-	glClear(GL_COLOR_BUFFER_BIT);
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 }
 
 void Window::update()
@@ -60,5 +73,4 @@ Window::~Window()
 	glfwDestroyWindow(this->window);
 	glfwTerminate();
 }
-
 }

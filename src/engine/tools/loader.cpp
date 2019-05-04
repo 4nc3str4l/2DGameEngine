@@ -1,6 +1,7 @@
 #include "loader.h"
 #include "log.h"
 #include <algorithm>
+#include "../gfx/stb_image.h"
 
 namespace le
 {
@@ -8,6 +9,7 @@ namespace le
 // Static Members
 std::string Loader::base;
 std::map<std::string, std::shared_ptr<Shader>> Loader::shaders;
+std::map<std::string, std::shared_ptr<Texture2D>> Loader::textures;
 
 void normalizePath(std::string* path)
 {
@@ -45,6 +47,53 @@ std::shared_ptr<Shader> Loader::shader(const std::string& path)
     auto shader = std::make_shared<Shader>(fullPath);
     Loader::shaders.insert({ fullPath, shader});
     return shader;
+}
+
+std::shared_ptr<Texture2D> Loader::LoadTexture(const std::string& _texturePath, int* _width, int* _heigth)
+{
+    std::string fullPath = base + _texturePath;
+	normalizePath(&fullPath);
+
+    if(Loader::textures.find(fullPath) != Loader::textures.end())
+    {
+        LOG_INFO("Loading Cached Texture ", fullPath);
+        return Loader::textures[fullPath];
+    }
+
+    LOG_INFO("Loading Texture ", fullPath);
+
+    // Create Texture object
+    Texture2D* texture = new Texture2D();
+   
+	int nrChannels;
+	unsigned char *data = nullptr;
+
+	int w, h;
+	if (_texturePath.find(".png") != std::string::npos)
+	{
+		data = stbi_load(fullPath.c_str(), &w, &h, &nrChannels, STBI_rgb_alpha);
+		texture->Internal_Format = GL_RGBA;
+		texture->Image_Format = GL_RGBA;
+	}
+	else
+	{
+		data = stbi_load(fullPath.c_str(), &w, &h, &nrChannels, STBI_rgb);
+	}
+
+	if (!data)
+	{
+		LOG_FAIL("Failed to load texture: ", fullPath);
+		return nullptr;
+	}
+	else
+	{
+		// Now generate texture
+		texture->Generate(w, h, data);
+		stbi_image_free(data);
+		std::shared_ptr<Texture2D> t(texture);
+		Loader::textures.insert({ fullPath, t });
+		return t;
+	}
 }
 
 }

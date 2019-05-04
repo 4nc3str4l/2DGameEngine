@@ -13,15 +13,24 @@ add_executable(FirstStreaming
     ${CMAKE_SOURCE_DIR}/engine/tools/log.h
     ${CMAKE_SOURCE_DIR}/engine/tools/log.cpp
     
-    ${CMAKE_SOURCE_DIR}/engine/tools/loader.h
-    ${CMAKE_SOURCE_DIR}/engine/tools/loader.cpp
-
     ${CMAKE_SOURCE_DIR}/engine/gfx/shader.h
     ${CMAKE_SOURCE_DIR}/engine/gfx/shader.cpp    
     
     ${CMAKE_SOURCE_DIR}/engine/gfx/window.h 
     ${CMAKE_SOURCE_DIR}/engine/gfx/window.cpp
     
+    ${CMAKE_SOURCE_DIR}/engine/gfx/sprite_renderer.h 
+    ${CMAKE_SOURCE_DIR}/engine/gfx/sprite_renderer.cpp
+
+    ${CMAKE_SOURCE_DIR}/engine/gfx/texture_2d.h 
+    ${CMAKE_SOURCE_DIR}/engine/gfx/texture_2d.cpp
+
+    ${CMAKE_SOURCE_DIR}/engine/gfx/stb_image.h
+    ${CMAKE_SOURCE_DIR}/engine/gfx/stb_image.cpp 
+
+    ${CMAKE_SOURCE_DIR}/engine/tools/loader.h
+    ${CMAKE_SOURCE_DIR}/engine/tools/loader.cpp
+
     ${CMAKE_SOURCE_DIR}/engine/main.cpp
     ${CMAKE_SOURCE_DIR}/dependencies/glad/src/glad.c 
 )

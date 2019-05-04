@@ -3,6 +3,8 @@
 
 namespace le {
 
+Shader::Shader(){}
+
 Shader::Shader(const std::string genericPath)
 {
     std::string fs = genericPath + ".fs";
