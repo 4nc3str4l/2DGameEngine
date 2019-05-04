@@ -59,5 +59,7 @@ int main(int argc, char** argv)
 		w.update();
     }
 
+	le::Loader::FreeResources();
+
     return 0;
 }

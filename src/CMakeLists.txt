@@ -31,6 +31,9 @@ add_executable(FirstStreaming
     ${CMAKE_SOURCE_DIR}/engine/gfx/sprite.h
     ${CMAKE_SOURCE_DIR}/engine/gfx/sprite.cpp 
     
+    ${CMAKE_SOURCE_DIR}/engine/gfx/raw_model.h
+    ${CMAKE_SOURCE_DIR}/engine/gfx/raw_model.cpp 
+
     ${CMAKE_SOURCE_DIR}/engine/tools/loader.h
     ${CMAKE_SOURCE_DIR}/engine/tools/loader.cpp
 

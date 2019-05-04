@@ -11,6 +11,9 @@ std::string Loader::base;
 std::map<std::string, std::shared_ptr<Shader>> Loader::shaders;
 std::map<std::string, std::shared_ptr<Texture2D>> Loader::textures;
 
+std::vector<GLuint> Loader::vaos;
+std::vector<GLuint> Loader::vbos;
+
 void normalizePath(std::string* path)
 {
     #if defined(_WIN64)
@@ -93,6 +96,91 @@ std::shared_ptr<Texture2D> Loader::LoadTexture(const std::string& _texturePath, 
 		std::shared_ptr<Texture2D> t(texture);
 		Loader::textures.insert({ fullPath, t });
 		return t;
+	}
+}
+
+GLuint Loader::CreateVAO()
+{
+	GLuint vaoID;
+    GL_CHECK(glGenVertexArrays(1, &vaoID));
+    GL_CHECK(glBindVertexArray(vaoID));
+	vaos.push_back(vaoID);
+	return vaoID;
+}
+
+
+RawModel* Loader::LoadToVAO(float* positions, int dimensions, int _length)
+{
+	int vaoID = CreateVAO();
+	StoreDataInAttributeList(0, dimensions, positions, _length);
+	
+	// Unbind
+    GL_CHECK(glBindVertexArray(0));
+	return new RawModel(vaoID, _length);
+}
+
+GLuint Loader::CreateEmptyVBO(int maxNumOfFloats)
+{
+	GLuint VBO;
+	glGenBuffers(1, &VBO);
+	vbos.push_back(VBO);
+	glBindBuffer(GL_ARRAY_BUFFER, VBO);
+	glBufferData(GL_ARRAY_BUFFER, maxNumOfFloats * sizeof(float), GL_NONE,  GL_STREAM_DRAW);
+	glBindBuffer(GL_ARRAY_BUFFER, 0);
+	return VBO;
+}
+
+void Loader::AddInstancedAttributes(int _vao, int _vbo, int _attribute, int _dataSize, int _instancedDataLength, int _offset)
+{
+	glBindBuffer(GL_ARRAY_BUFFER, _vbo);
+	glBindVertexArray(_vao);
+	glVertexAttribPointer(_attribute, _dataSize, GL_FLOAT, GL_FALSE, _instancedDataLength * 4, (void*)(_offset * 4));
+	glVertexAttribDivisor(_attribute, 1);
+	glBindBuffer(GL_ARRAY_BUFFER, 0);
+	glBindVertexArray(0);
+}
+
+void Loader::UpdateVBO(GLuint _vbo, float* _data, int dataLength)
+{
+	glBindBuffer(GL_ARRAY_BUFFER, _vbo);
+	glBufferData(GL_ARRAY_BUFFER, dataLength * sizeof(float), GL_NONE, GL_STREAM_DRAW);
+	glBufferSubData(GL_ARRAY_BUFFER, 0, dataLength * 4,  _data);
+	glBindBuffer(GL_ARRAY_BUFFER, 0);
+
+}
+
+void Loader::StoreDataInAttributeList(int _attributeNumber, int _coordinateSize, float* _data, int _length)
+{
+	GLuint vboID;
+    GL_CHECK(glGenBuffers(1, &vboID));
+	vbos.push_back(vboID);
+    GL_CHECK(glBindBuffer(GL_ARRAY_BUFFER, vboID));
+    GL_CHECK(glBufferData(GL_ARRAY_BUFFER, sizeof(float) * _length, &_data[0], GL_STATIC_DRAW));
+    GL_CHECK(glVertexAttribPointer(_attributeNumber, _coordinateSize, GL_FLOAT, GL_FALSE, 0, (void*)0));
+    GL_CHECK(glBindBuffer(GL_ARRAY_BUFFER, 0));
+	glBindVertexArray(0);
+}
+
+void Loader::FreeResources()
+{
+	for (GLuint vao : vaos)
+	{
+		glDeleteVertexArrays(1, &vao);
+	}
+
+	for (GLuint vbo : vbos)
+	{
+		glDeleteBuffers(1, &vbo);
+	}
+
+	for (auto keyVal : textures)
+	{
+		LOG_FAIL("Free Texture: ", keyVal.first);
+	}
+
+	for (auto keyVal : shaders)
+	{
+		LOG_FAIL("Free Shader: ", keyVal.first);
 	}
 }
 
