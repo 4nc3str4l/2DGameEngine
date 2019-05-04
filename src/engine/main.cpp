@@ -7,6 +7,7 @@
 #include "glm/gtc/matrix_transform.hpp"
 #include "tools/maths.h"
 #include "gfx/sprite.h"
+#include <vector>
 
 int main(int argc, char** argv)
 {
@@ -24,38 +25,39 @@ int main(int argc, char** argv)
     // Configure shaders
     glm::mat4 projection = glm::ortho(0.0f, static_cast<GLfloat>(800), static_cast<GLfloat>(600), 0.0f, -1.0f, 1.0f);
     
-	s.get()->Use();
-	s.get()->SetInt("image", 0);
+	s->Use();
+	s->SetInt("image", 0);
 
-    s.get()->SetMat4("projection", projection);
+    s->SetMat4("projection", projection);
     
 	// Set render-specific controls
-    auto sr = le::SpriteRenderer(*s.get());
+    auto sr = le::SpriteRenderer(*s);
 
     /* Loop until the user closes the window */
 	int spriteX = 0;
 	int spriteY = 0;
 
-	const int SPRITE_NUM = 2000;
-	le::Sprite sprites[SPRITE_NUM];
+	const int SPRITE_NUM = 50000;
+
+	std::vector<le::Sprite*> sprites;
 	for(int i = 0; i < SPRITE_NUM; i++)
 	{
-		sprites[i] = le::Sprite{0, 0, texture2};
-		sprites[i].tint = glm::vec3(le::Maths::GetRandomFloat(), le::Maths::GetRandomFloat(), le::Maths::GetRandomFloat());
+		sprites.push_back(new le::Sprite{0, 0, texture2});
+		sprites[i]->tint = glm::vec3(le::Maths::GetRandomFloat(), le::Maths::GetRandomFloat(), le::Maths::GetRandomFloat());
+		sprites[i]->pos.x = le::Maths::GetRandomFloat(0, w.width);
+		sprites[i]->pos.y = le::Maths::GetRandomFloat(0, w.height);
+		sprites[i]->ComputeModel();
+		sprites[i]->tint = glm::vec3(le::Maths::GetRandomFloat(), le::Maths::GetRandomFloat(), le::Maths::GetRandomFloat());
 	}
 	
+	s->SetMat4("projection", projection);
     while (!w.isClosed())
     {
 		w.clear();
 
-		for (int i = 0; i < SPRITE_NUM; i++)
-		{
-			auto s = sprites[i];
-			s.pos.x = le::Maths::GetRandomFloat(0, w.width);
-			s.pos.y = le::Maths::GetRandomFloat(0, w.height);
-			sr.DrawSprite(*s.texture.get(), s.pos, s.scale, s.rot, s.tint);
-		}
-
+		
+		sr.Render(sprites);
+		
 		w.update();
     }
 

@@ -33,15 +33,15 @@ class Loader
 {
 public:
     static std::string base;
-    static std::map<std::string, std::shared_ptr<Shader>> shaders;
-    static std::map<std::string, std::shared_ptr<Texture2D>> textures;
+    static std::map<std::string, Shader*> shaders;
+    static std::map<std::string, Texture2D*> textures;
 
     static std::vector<GLuint> vaos;
 	static std::vector<GLuint> vbos;
 public:
     static void init(char** argv);
-    static std::shared_ptr<Shader> shader(const std::string& path);
-    static std::shared_ptr<Texture2D> LoadTexture(const std::string& _texturePath, int* _width = nullptr, int* _heigth = nullptr);
+    static Shader* shader(const std::string& path);
+    static Texture2D* LoadTexture(const std::string& _texturePath, int* _width = nullptr, int* _heigth = nullptr);
 
     static GLuint CreateVAO();
     static GLuint CreateEmptyVBO(int maxNumOfFloats);

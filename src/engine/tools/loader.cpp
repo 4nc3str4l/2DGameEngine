@@ -8,8 +8,8 @@ namespace le
 
 // Static Members
 std::string Loader::base;
-std::map<std::string, std::shared_ptr<Shader>> Loader::shaders;
-std::map<std::string, std::shared_ptr<Texture2D>> Loader::textures;
+std::map<std::string, Shader*> Loader::shaders;
+std::map<std::string, Texture2D*> Loader::textures;
 
 std::vector<GLuint> Loader::vaos;
 std::vector<GLuint> Loader::vbos;
@@ -35,7 +35,7 @@ void Loader::init(char** argv)
     LOG_INFO(Loader::base);
 }
 
-std::shared_ptr<Shader> Loader::shader(const std::string& path)
+Shader* Loader::shader(const std::string& path)
 {
 	std::string fullPath = base + path;
 	normalizePath(&fullPath);
@@ -47,12 +47,12 @@ std::shared_ptr<Shader> Loader::shader(const std::string& path)
     }
     
     LOG_INFO("Trying to load shader ", fullPath);
-    auto shader = std::make_shared<Shader>(fullPath);
-    Loader::shaders.insert({ fullPath, shader});
+	auto shader = new Shader(fullPath);
+    Loader::shaders.insert({ fullPath, shader });
     return shader;
 }
 
-std::shared_ptr<Texture2D> Loader::LoadTexture(const std::string& _texturePath, int* _width, int* _heigth)
+Texture2D* Loader::LoadTexture(const std::string& _texturePath, int* _width, int* _heigth)
 {
     std::string fullPath = base + _texturePath;
 	normalizePath(&fullPath);
@@ -93,9 +93,8 @@ std::shared_ptr<Texture2D> Loader::LoadTexture(const std::string& _texturePath, 
 		// Now generate texture
 		texture->Generate(w, h, data);
 		stbi_image_free(data);
-		std::shared_ptr<Texture2D> t(texture);
-		Loader::textures.insert({ fullPath, t });
-		return t;
+		Loader::textures.insert({ fullPath, texture });
+		return texture;
 	}
 }
 

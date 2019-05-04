@@ -19,8 +19,6 @@ int Window::init()
 	if (!glfwInit())
 		return -1;
 
-
-
 	/* Create a windowed mode window and its OpenGL context */
 	window = glfwCreateWindow(this->width, this->height, this->title.c_str(), NULL, NULL);
 	if (!window)
@@ -56,8 +54,6 @@ int Window::init()
 	glfwSetCursorPosCallback(window, cursor_position_callback);
 	glfwSetScrollCallback(window, scroll_callback);
 	
-	glfwWindowHint(GLFW_SAMPLES, 4);
-	glEnable(GL_MULTISAMPLE);  
 	glEnable(GL_DEPTH_TEST);
 	
 	// Allow alpha blending
