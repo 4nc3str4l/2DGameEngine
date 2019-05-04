@@ -37,25 +37,26 @@ int main(int argc, char** argv)
 	int spriteX = 0;
 	int spriteY = 0;
 
-	const int SPRITE_NUM = 50000;
+	const int SPRITE_NUM = 2000;
 
 	std::vector<le::Sprite*> sprites;
 	for(int i = 0; i < SPRITE_NUM; i++)
 	{
 		sprites.push_back(new le::Sprite{0, 0, texture2});
-		sprites[i]->tint = glm::vec3(le::Maths::GetRandomFloat(), le::Maths::GetRandomFloat(), le::Maths::GetRandomFloat());
-		sprites[i]->pos.x = le::Maths::GetRandomFloat(0, w.width);
-		sprites[i]->pos.y = le::Maths::GetRandomFloat(0, w.height);
-		sprites[i]->ComputeModel();
-		sprites[i]->tint = glm::vec3(le::Maths::GetRandomFloat(), le::Maths::GetRandomFloat(), le::Maths::GetRandomFloat());
 	}
 	
-	s->SetMat4("projection", projection);
     while (!w.isClosed())
     {
 		w.clear();
 
-		
+		s->SetMat4("projection", projection);
+		for (le::Sprite* s : sprites)
+		{
+			s->pos.x = le::Maths::GetRandomFloat(0, w.width);
+			s->pos.y = le::Maths::GetRandomFloat(0, w.height);
+			s->tint = glm::vec3(le::Maths::GetRandomFloat(), le::Maths::GetRandomFloat(), le::Maths::GetRandomFloat());
+		}
+
 		sr.Render(sprites);
 		
 		w.update();

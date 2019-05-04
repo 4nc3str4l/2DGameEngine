@@ -94,7 +94,7 @@ void SpriteRenderer::computeModels(std::vector<Sprite*>& sprites)
 {
     for(Sprite* s : sprites)
     {
-        //s->ComputeModel();
+        s->ComputeModel();
         StoreMatrixData(s->model);
         UpdateTintInfo(s);
     }
