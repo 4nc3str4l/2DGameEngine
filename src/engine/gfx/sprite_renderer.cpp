@@ -119,7 +119,6 @@ void SpriteRenderer::Render(std::vector<Sprite*>& sprites)
 void SpriteRenderer::FinishRendering()
 {
     glDepthMask(true);
-    //glDisable(GL_BLEND);
     glDisableVertexAttribArray(0);
     glDisableVertexAttribArray(1);
     glDisableVertexAttribArray(2);
