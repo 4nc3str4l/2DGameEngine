@@ -2,4 +2,4 @@ cd build
 cmake --build .
 cd Debug
 cp -r ../../engine/res .
-./FirstStreaming.exe 
+./LostEngine2D.exe 

@@ -1,19 +1,23 @@
 cmake_minimum_required (VERSION 3.9.0)
-project(FistStreaming)
+project(LostEngine2D)
 
+# GLFW For window handling
 set(GLFW_BUILD_DOCS OFF CACHE BOOL "" FORCE)
 set(GLFW_BUILD_TESTS OFF CACHE BOOL "" FORCE)
 set(GLFW_BUILD_EXAMPLES OFF CACHE BOOL "" FORCE)
-
-include_directories(${CMAKE_SOURCE_DIR}/dependencies/glad/include)
-
 add_subdirectory(${CMAKE_SOURCE_DIR}/dependencies/glfw-3.3)
+
+# FreeType for Text Rendering
 add_subdirectory(${CMAKE_SOURCE_DIR}/dependencies/freetype-2.10.0)
 include_directories(${PROJECT_SOURCE_DIR}/dependencies/freetype-2.10.0/include)
 
+# Math Library
 include_directories(${CMAKE_SOURCE_DIR}/dependencies/glm)
 
-add_executable(FirstStreaming 
+# Glad for OpenGL functions
+include_directories(${CMAKE_SOURCE_DIR}/dependencies/glad/include)
+
+add_executable(LostEngine2D 
     ${CMAKE_SOURCE_DIR}/engine/tools/log.h
     ${CMAKE_SOURCE_DIR}/engine/tools/log.cpp
     
@@ -54,4 +58,4 @@ add_executable(FirstStreaming
     ${CMAKE_SOURCE_DIR}/dependencies/glad/src/glad.c 
 )
 
-target_link_libraries(FirstStreaming glfw freetype)
+target_link_libraries(LostEngine2D glfw freetype)
