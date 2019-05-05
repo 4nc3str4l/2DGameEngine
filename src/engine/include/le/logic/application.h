@@ -15,7 +15,7 @@ public:
     }
 
     virtual void init(Window* _window) = 0;
-    virtual void update(float _delta, Window* _window) = 0;
+    virtual void update(Window* _window) = 0;
     virtual void render(Window* _window) = 0;
 
 public:

@@ -1,6 +1,7 @@
 #include "lost_engine.h"
 #include "../tools/loader.h"
 #include "../tools/log.h"
+#include "../tools/timer.h"
 
 namespace le
 {
@@ -23,9 +24,9 @@ void LostEngine::start()
 
     while (!w.isClosed())
     {
-        // TODO: GET REAL DELTA
         w.clear();
-        this->app->update(0.1f, &w);
+        Timer::update();
+        this->app->update(&w);
         this->app->render(&w);
 		w.update();
     }

@@ -49,6 +49,7 @@ add_library(LostEngine2D STATIC
     ${PROJECT_SOURCE_DIR}/engine/src/tools/loader.cpp
     ${PROJECT_SOURCE_DIR}/engine/src/tools/input.cpp
     ${PROJECT_SOURCE_DIR}/engine/src/tools/maths.cpp
+    ${PROJECT_SOURCE_DIR}/engine/src/tools/timer.cpp
 
     ${PROJECT_SOURCE_DIR}/engine/src/logic/lost_engine.cpp
     ${PROJECT_SOURCE_DIR}/dependencies/glad/src/glad.c 
