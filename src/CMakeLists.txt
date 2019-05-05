@@ -18,9 +18,9 @@ include_directories(${PROJECT_SOURCE_DIR}/dependencies/glm)
 include_directories(${PROJECT_SOURCE_DIR}/dependencies/glad/include)
 
 # Include the own include folder to have shorter paths
-include_directories(${PROJECT_SOURCE_DIR}/engine/include/tools)
-include_directories(${PROJECT_SOURCE_DIR}/engine/include/gfx)
-include_directories(${PROJECT_SOURCE_DIR}/engine/include/logic)
+include_directories(${PROJECT_SOURCE_DIR}/engine/include/le/tools)
+include_directories(${PROJECT_SOURCE_DIR}/engine/include/le/gfx)
+include_directories(${PROJECT_SOURCE_DIR}/engine/include/le/logic)
 
 # Get the current source dir and add it as a local variable
 SET_PROPERTY(GLOBAL PROPERTY MyGlobalProperty ${PROJECT_SOURCE_DIR})
@@ -44,7 +44,7 @@ add_library(LostEngine2D STATIC
     ${PROJECT_SOURCE_DIR}/engine/src/gfx/sprite.cpp 
     ${PROJECT_SOURCE_DIR}/engine/src/gfx/raw_model.cpp 
     ${PROJECT_SOURCE_DIR}/engine/src/gfx/text_renderer.cpp
-     
+
     ${PROJECT_SOURCE_DIR}/engine/src/tools/log.cpp
     ${PROJECT_SOURCE_DIR}/engine/src/tools/loader.cpp
     ${PROJECT_SOURCE_DIR}/engine/src/tools/input.cpp

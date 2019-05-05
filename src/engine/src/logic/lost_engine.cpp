@@ -19,6 +19,8 @@ void LostEngine::start()
         return;
 	}
 
+    this->app->init(&w);
+
     while (!w.isClosed())
     {
         // TODO: GET REAL DELTA
