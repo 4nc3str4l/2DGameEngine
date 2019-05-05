@@ -1,16 +1,16 @@
 #include <iostream>
-#include "gfx/window.h"
-#include "tools/loader.h"
-#include "gfx/sprite_renderer.h"
+#include "window.h"
+#include "loader.h"
+#include "sprite_renderer.h"
 
-#include "tools/input.h"
+#include "input.h"
 #include "glm/gtc/matrix_transform.hpp"
-#include "tools/maths.h"
-#include "gfx/sprite.h"
+#include "maths.h"
+#include "sprite.h"
 #include <vector>
 
-#include "gfx/text_renderer.h"
-#include "tools/log.h"
+#include "text_renderer.h"
+#include "log.h"
 
 
 int main(int argc, char** argv)
