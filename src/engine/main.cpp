@@ -12,7 +12,6 @@
 #include "text_renderer.h"
 #include "log.h"
 
-
 int main(int argc, char** argv)
 {
     auto w = le::Window{800, 600, "Lost Engine"};
