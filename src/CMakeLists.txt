@@ -21,6 +21,19 @@ include_directories(${PROJECT_SOURCE_DIR}/dependencies/glad/include)
 include_directories(${PROJECT_SOURCE_DIR}/engine/include/tools)
 include_directories(${PROJECT_SOURCE_DIR}/engine/include/gfx)
 
+# Get the current source dir and add it as a local variable
+SET_PROPERTY(GLOBAL PROPERTY MyGlobalProperty ${PROJECT_SOURCE_DIR})
+
+function(lost_engine_includes)
+    # Recover the local variable in the function call to add the includes in other projects
+    GET_PROPERTY(Source_dir GLOBAL PROPERTY MyGlobalProperty)
+    include_directories(${Source_dir}/dependencies/glm)
+    include_directories(${Source_dir}/dependencies/glad/include)
+    include_directories(${Source_dir}/dependencies/glfw-3.3/include)
+    include_directories(${Source_dir}/dependencies/freetype-2.10.0/include)
+    include_directories(${Source_dir}/engine/include)
+endfunction(lost_engine_includes) 
+
 add_library(LostEngine2D STATIC
     ${PROJECT_SOURCE_DIR}/engine/src/gfx/shader.cpp    
     ${PROJECT_SOURCE_DIR}/engine/src/gfx/window.cpp
