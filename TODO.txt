@@ -1,9 +1,0 @@
-GOALS
-
-- Create a 2D Game Engine in C++ and Opengl
-- Create a Map Editor.
-- Create a Character Editor.
-
-- Renderer 2D
-
-[TODO] Open a Window!
