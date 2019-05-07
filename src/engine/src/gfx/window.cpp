@@ -2,6 +2,7 @@
 #include <iostream>
 #include "../tools/input.h"
 #include "../tools/log.h"
+#include "event_manager.h"
 
 namespace le
 {
@@ -53,6 +54,7 @@ int Window::init()
 	glfwSetMouseButtonCallback(window, mouse_button_callback);
 	glfwSetCursorPosCallback(window, cursor_position_callback);
 	glfwSetScrollCallback(window, scroll_callback);
+	glfwSetDropCallback(window, drop_callback);
 	
 	glEnable(GL_DEPTH_TEST);
 	
@@ -124,4 +126,14 @@ void Window::framebuffer_size_callback(GLFWwindow* window, int width, int height
 	ownWindow->isResized = true;
 	glViewport(0, 0, width, height);
 }
+
+void Window::drop_callback(GLFWwindow* window, int count, const char** paths)
+{
+	for (int i = 0;  i < count;  i++)
+	{
+		EventManager::fire(Event::drop_file);
+		LOG_MESSAGE(paths[i]);
+	}
+}
+
 }

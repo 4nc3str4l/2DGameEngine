@@ -40,15 +40,15 @@ Shader* Loader::shader(const std::string& path)
 	std::string fullPath = base + path;
 	normalizePath(&fullPath);
 
-    if(Loader::shaders.find(fullPath) != Loader::shaders.end())
+    if(shaders.find(fullPath) != shaders.end())
     {
         LOG_INFO("Loading Cached Shader ", fullPath);
-        return Loader::shaders[path];
+        return shaders[path];
     }
     
     LOG_INFO("Trying to load shader ", fullPath);
 	auto shader = new Shader(fullPath);
-    Loader::shaders.insert({ fullPath, shader });
+    shaders.insert(std::pair<std::string, Shader*>(fullPath, shader));
     return shader;
 }
 
@@ -93,7 +93,7 @@ Texture2D* Loader::LoadTexture(const std::string& _texturePath, int* _width, int
 		// Now generate texture
 		texture->Generate(w, h, data);
 		stbi_image_free(data);
-		Loader::textures.insert({ fullPath, texture });
+		Loader::textures.insert(std::pair<std::string, Texture2D*>(fullPath, texture));
 		return texture;
 	}
 }

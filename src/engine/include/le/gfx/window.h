@@ -21,6 +21,7 @@ private:
     static void cursor_position_callback(GLFWwindow* window, double xpos, double ypos);
     static void scroll_callback(GLFWwindow* window, double xoffset, double yoffset);
 	static void framebuffer_size_callback(GLFWwindow* window, int width, int height);
+	static void drop_callback(GLFWwindow* window, int count, const char** paths);
 private:
 	GLFWwindow* window;
 public:

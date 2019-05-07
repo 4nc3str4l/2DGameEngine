@@ -1,7 +1,6 @@
 #include "sprite_renderer.h"
 #include "../tools/loader.h"
 #include <algorithm>
-#include <execution>
 
 namespace le
 {

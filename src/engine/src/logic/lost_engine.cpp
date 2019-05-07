@@ -13,7 +13,7 @@ LostEngine::LostEngine(char **argv, Application* application)
 
 void LostEngine::start()
 {
-    auto w = le::Window{app->width, app->height, app->title};
+    auto w = le::Window(app->width, app->height, app->title);
     if (!w.init()) 
 	{
         LOG_FAIL("Could not init window");
