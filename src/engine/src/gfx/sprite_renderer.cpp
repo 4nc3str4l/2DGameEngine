@@ -1,6 +1,8 @@
 #include "sprite_renderer.h"
 #include "../tools/loader.h"
 #include <algorithm>
+#include <map>
+#include "../tools/log.h"
 
 namespace le
 {
@@ -102,16 +104,33 @@ void SpriteRenderer::computeModels(std::vector<Sprite*>& sprites)
 
 void SpriteRenderer::Render(std::vector<Sprite*>& sprites)
 {
+    if(sprites.size() == 0)
+    {
+        return;
+    }
+    
     Prepare();
 
-    glActiveTexture(GL_TEXTURE0);
-    sprites[0]->texture->Bind();
-	bufferPointer = 0;
-	
-	computeModels(sprites);
+    std::map<Texture2D*, std::vector<Sprite*>> groupedSprites;
+    for(Sprite* s : sprites)
+    {
+        groupedSprites[s->texture].push_back(s);
+    }
 
-    Loader::UpdateVBO(vbo, buffer, sprites.size() * INSTACE_DATA_LENGTH);
-	glDrawArraysInstanced(GL_TRIANGLE_STRIP, 0, 6, sprites.size());
+    //TODO: Send all 
+    glActiveTexture(GL_TEXTURE0);
+    for(auto keyval : groupedSprites)
+    {
+        LOG_INFO("size: ", keyval.second.size());
+        keyval.first->Bind();
+        bufferPointer = 0;
+        
+        computeModels(keyval.second);
+
+        Loader::UpdateVBO(vbo, buffer, sprites.size() * INSTACE_DATA_LENGTH);
+        glDrawArraysInstanced(GL_TRIANGLE_STRIP, 0, 6, sprites.size());
+    }
+
     FinishRendering();
 } 
 

@@ -3,20 +3,17 @@
 #include <map>
 #include <functional>
 #include <vector>
+#include "delegate.h"
+#include <string>
 
 namespace le
 {
 
-typedef std::function<void()> voidEventCall;
-enum Event { drop_file };
+typedef Delegate<void(const std::string&)> fileDropHandler;
 
 class EventManager
 {
 public:
-    static void subscribe(Event ev, voidEventCall func);
-    static void unSubscribe(Event ev, voidEventCall func);
-    static void fire(Event ev);
-private:
-    static std::map<int, std::vector<voidEventCall> > events;
+    static fileDropHandler onFileDropped;
 };
 }

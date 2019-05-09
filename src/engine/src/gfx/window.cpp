@@ -4,6 +4,7 @@
 #include "../tools/log.h"
 #include "event_manager.h"
 
+
 namespace le
 {
 
@@ -131,7 +132,7 @@ void Window::drop_callback(GLFWwindow* window, int count, const char** paths)
 {
 	for (int i = 0;  i < count;  i++)
 	{
-		EventManager::fire(Event::drop_file);
+		EventManager::onFileDropped.Invoke(std::string(paths[i]));
 		LOG_MESSAGE(paths[i]);
 	}
 }

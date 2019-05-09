@@ -40,8 +40,8 @@ public:
 	static std::vector<GLuint> vbos;
 public:
     static void init(char** argv);
-    static Shader* shader(const std::string& path);
-    static Texture2D* LoadTexture(const std::string& _texturePath, int* _width = nullptr, int* _heigth = nullptr);
+    static Shader* shader(const std::string& path, bool isFull=false);
+    static Texture2D* LoadTexture(const std::string& _texturePath, bool isFull=false, int* _width = nullptr, int* _heigth = nullptr);
 
     static GLuint CreateVAO();
     static GLuint CreateEmptyVBO(int maxNumOfFloats);

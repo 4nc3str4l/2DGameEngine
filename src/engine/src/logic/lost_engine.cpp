@@ -8,6 +8,7 @@ namespace le
 LostEngine::LostEngine(char **argv, Application* application)
 {
     Loader::init(argv);
+    LOG_INFO("AAA CHIGUENA!");
     this->app = application;
 }
 

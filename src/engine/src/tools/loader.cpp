@@ -35,11 +35,11 @@ void Loader::init(char** argv)
     LOG_INFO(Loader::base);
 }
 
-Shader* Loader::shader(const std::string& path)
+Shader* Loader::shader(const std::string& path, bool isFull /*=false*/)
 {
-	std::string fullPath = base + path;
+	std::string fullPath = isFull ? path : base + path;
 	normalizePath(&fullPath);
-
+	
     if(shaders.find(fullPath) != shaders.end())
     {
         LOG_INFO("Loading Cached Shader ", fullPath);
@@ -48,13 +48,13 @@ Shader* Loader::shader(const std::string& path)
     
     LOG_INFO("Trying to load shader ", fullPath);
 	auto shader = new Shader(fullPath);
-    shaders.insert(std::pair<std::string, Shader*>(fullPath, shader));
+	shaders.insert(std::pair<std::string, Shader*>(fullPath, shader));
     return shader;
 }
 
-Texture2D* Loader::LoadTexture(const std::string& _texturePath, int* _width, int* _heigth)
+Texture2D* Loader::LoadTexture(const std::string& _texturePath, bool isFull, int* _width, int* _heigth)
 {
-    std::string fullPath = base + _texturePath;
+	std::string fullPath = isFull ? _texturePath : base + _texturePath;
 	normalizePath(&fullPath);
 
     if(Loader::textures.find(fullPath) != Loader::textures.end())
