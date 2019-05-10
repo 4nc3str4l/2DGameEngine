@@ -1,4 +1,5 @@
 #include "sprite.h"
+#include "log.h"
 
 namespace le
 {

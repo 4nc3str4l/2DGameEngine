@@ -44,6 +44,10 @@ void SpriteRenderer::initRenderData()
     
     // Tint info    
     Loader::AddInstancedAttributes(this->quadVAO, this->vbo, 5, 3, INSTACE_DATA_LENGTH, 16);
+
+    glGetIntegerv(GL_MAX_TEXTURE_IMAGE_UNITS, &numTextureUnits);
+    LOG_INFO("Num Textures ", numTextureUnits);
+
 }
 
 void SpriteRenderer::Prepare()
@@ -118,17 +122,16 @@ void SpriteRenderer::Render(std::vector<Sprite*>& sprites)
     }
 
     //TODO: Send all 
-    glActiveTexture(GL_TEXTURE0);
     for(auto keyval : groupedSprites)
     {
-        LOG_INFO("size: ", keyval.second.size());
+        glActiveTexture(GL_TEXTURE0);
         keyval.first->Bind();
         bufferPointer = 0;
         
         computeModels(keyval.second);
 
-        Loader::UpdateVBO(vbo, buffer, sprites.size() * INSTACE_DATA_LENGTH);
-        glDrawArraysInstanced(GL_TRIANGLE_STRIP, 0, 6, sprites.size());
+        Loader::UpdateVBO(vbo, buffer, keyval.second.size() * INSTACE_DATA_LENGTH);
+        glDrawArraysInstanced(GL_TRIANGLE_STRIP, 0, 6, keyval.second.size());
     }
 
     FinishRendering();

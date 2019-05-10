@@ -25,7 +25,8 @@ class SpriteRenderer
         Shader shader; 
         GLuint quadVAO;
         GLuint vbo;
-		unsigned int bufferPointer;
+		int numTextureUnits;
+        unsigned int bufferPointer;
 		static float buffer[];
         void initRenderData();
         void computeModels(std::vector<Sprite*>& sprites);
